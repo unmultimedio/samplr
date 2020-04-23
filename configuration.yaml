@@ -1,7 +1,15 @@
 # Some comments
 shareable_config: foo
+#samplr#secret_config: mocked
 secret_config: secret
 public_config: bar
-# a secret comment
---
-# a public comment
+#samplr## a comment that includes mocks
+# a comment that includes secret
+
+
+# blank lines
+
+
+foo: foo
+#samplr#bar: barpublic
+bar: barprivate

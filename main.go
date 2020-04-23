@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"strings"
 )
 
 func main() {
@@ -21,21 +22,16 @@ func main() {
 	}
 
 	scanner := bufio.NewScanner(input)
-	// for scanner.Scan() {
-	// 	// fmt.Println(scanner.Text())
-	// 	if _, err := output.WriteString(scanner.Text() + "\n"); err != nil {
-	// 		log.Fatal(err)
-	// 	}
-	// }
-	// err = output.Sync()
-	// if err != nil {
-	// 	log.Fatal(err)
-	// }
-
 	writer := bufio.NewWriter(output)
+	var l string
+	var skip bool
 	for scanner.Scan() {
-		// fmt.Println(scanner.Text())
-		if _, err := writer.WriteString(scanner.Text() + "\n"); err != nil {
+		if skip {
+			skip = false
+			continue
+		}
+		l, skip = sampleLine(scanner.Text())
+		if _, err := writer.WriteString(l); err != nil {
 			log.Fatal(err)
 		}
 	}
@@ -44,4 +40,15 @@ func main() {
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
 	}
+}
+
+// sampleLine returns sampled line and flag to skip next one
+func sampleLine(l string) (string, bool) {
+	const key = "#samplr#"
+	i := strings.LastIndex(l, key)
+	if i == -1 {
+		return l + "\n", false
+	}
+
+	return l[i+len(key):] + "\n", true
 }
