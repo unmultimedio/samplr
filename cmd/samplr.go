@@ -8,24 +8,30 @@ import (
 	"strings"
 )
 
-// Sample samples the files
-func Sample() {
-	fileName := "configuration.yaml"
+const key = "#samplr#"
 
-	input, err := os.Open(fileName)
+// Sample samples the project
+func Sample() {
+	for _, path := range samplrableFiles() {
+		if err := sampleFile(path); err != nil {
+			log.Fatal(err)
+		}
+	}
+}
+
+func sampleFile(filePath string) error {
+	input, err := os.Open(filePath)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer func() { _ = input.Close() }()
 
-	output, err := os.Create(fileName + ".sample")
+	output, err := os.Create(filePath + ".sample")
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
-	if err := replicateFile(input, output); err != nil {
-		log.Fatal(err)
-	}
+	return replicateFile(input, output)
 }
 
 func replicateFile(input *os.File, output *os.File) error {
@@ -50,7 +56,6 @@ func replicateFile(input *os.File, output *os.File) error {
 
 // sampleLine returns sampled line and flag to skip next one
 func sampleLine(l string) (string, bool) {
-	const key = "#samplr#"
 	i := strings.LastIndex(l, key)
 	if i == -1 {
 		return l + "\n", false

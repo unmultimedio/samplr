@@ -1,0 +1,12 @@
+# Some comments
+shareable_config: foo
+secret_config: mocked
+public_config: bar
+# a comment that includes mocks
+
+
+# blank lines
+
+
+foo: foo
+bar: barpublic
