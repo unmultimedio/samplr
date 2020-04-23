@@ -25,26 +25,11 @@ func samplrableFiles() []string {
 
 // isSamplrable checks that a file is included in patterns, and includes the keywords
 func isSamplrable(filePath string) bool {
-	// TODO support in configuration file
-	var matchPatterns = []string{
-		`\.yaml$`,
-	}
-
-	var matches bool
-	for _, pattern := range matchPatterns {
-		m, err := regexp.Match(pattern, []byte(filePath))
-		if err != nil {
-			log.Fatal(err)
-			continue
-		}
-		if m {
-			matches = true
-			break
-		}
-	}
-	if !matches {
+	if !isSamplrablePath(filePath) {
+		// log.Print("ignored: " + filePath)
 		return false
 	}
+	log.Print("matches: " + filePath)
 
 	f, err := os.Open(filePath)
 	if err != nil {
@@ -56,9 +41,11 @@ func isSamplrable(filePath string) bool {
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		if strings.Contains(scanner.Text(), key) {
+			log.Print("key found in: " + filePath)
 			return true
 		}
 	}
+	log.Print("key not found in: " + filePath)
 
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
@@ -66,4 +53,34 @@ func isSamplrable(filePath string) bool {
 	}
 
 	return false
+}
+
+func isSamplrablePath(filePath string) bool {
+	// Matches with includes and doesn't match with excludes
+	return pathMatches(filePath, true) && !pathMatches(filePath, false)
+}
+
+// pathMatches checks if a filePath matches with includes (true) or excludes (false)
+func pathMatches(filePath string, includes bool) bool {
+	var patterns []string
+	if includes {
+		patterns = config.Includes
+	} else {
+		patterns = config.Excludes
+	}
+
+	var matches bool
+	for _, pattern := range patterns {
+		m, err := regexp.Match(pattern, []byte(filePath))
+		if err != nil {
+			log.Fatal(err)
+			continue
+		}
+		if m {
+			matches = true
+			break
+		}
+	}
+
+	return matches
 }

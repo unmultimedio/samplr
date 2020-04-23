@@ -87,7 +87,7 @@ That line will print everything after the keyword and will ignore the immediate 
 ## Samplr command
 
 When run, it will scan all of your directory files, and will generate sample files for files that meet these requirements:
-- file path matches with the configuration file regex matches list
+- file path matches with the [configuration file](.samplr.yaml) regex matches list
 - it includes the `#samplr#` keyword at least once
 
 ## Sample extension

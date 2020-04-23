@@ -1,5 +1,4 @@
 FROM ubuntu:18.04
 COPY . /app
-#samplr#RUN make /mockapp
-RUN make /secretapp
+RUN make /mockapp
 CMD python /app/app.py

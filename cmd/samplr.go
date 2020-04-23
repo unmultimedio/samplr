@@ -63,6 +63,7 @@ func replicateFile(input *os.File, output *os.File) error {
 		}
 	}
 	defer func() { _ = writer.Flush() }()
+	log.Print("sample generated: " + output.Name())
 
 	return scanner.Err()
 }

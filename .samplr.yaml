@@ -1,0 +1,12 @@
+# Write here your regex matches for
+# filenames that you want to include
+# or exclude from the samplr generation
+# Be careful to indent using spaces
+
+includes:
+  - \.yaml$
+  - Dockerfile$
+
+excludes:
+  - \.go$
+  - \.sample\.
