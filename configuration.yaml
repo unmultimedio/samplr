@@ -1,0 +1,7 @@
+# Some comments
+shareable_config: foo
+secret_config: secret
+public_config: bar
+# a secret comment
+--
+# a public comment
