@@ -1,0 +1,23 @@
+# https://github.com/golangci/golangci-lint#config-file
+
+run:
+  modules-download-mode: vendor
+
+linters-settings:
+  golint:
+    min-confidence: 0
+
+linters:
+  disable-all: true
+  enable:
+    - deadcode
+    - errcheck
+    - golint
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - structcheck
+    - typecheck
+    - unused
+    - varcheck
