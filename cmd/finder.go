@@ -48,11 +48,11 @@ func isSamplrable(filePath string) bool {
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		if strings.Contains(scanner.Text(), key) {
-			log.Print("key found in: " + filePath)
+			log.Print("key in: " + filePath)
 			return true
 		}
 	}
-	log.Print("key not found in: " + filePath)
+	log.Print("key not in: " + filePath)
 
 	if err := scanner.Err(); err != nil {
 		log.Fatal(err)
@@ -63,8 +63,14 @@ func isSamplrable(filePath string) bool {
 }
 
 func isSamplrablePath(filePath string) bool {
-	// Matches with includes and doesn't match with excludes
-	return pathMatches(filePath, true) && !pathMatches(filePath, false)
+	included := pathMatches(filePath, true)
+	excluded := pathMatches(filePath, false)
+	if included && excluded {
+		log.Print("excluded: " + filePath)
+	}
+
+	// Matches if included and not excluded
+	return included && !excluded
 }
 
 // pathMatches checks if a filePath matches with includes (true) or excludes (false)
