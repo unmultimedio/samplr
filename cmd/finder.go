@@ -14,12 +14,15 @@ import (
 // - contains somewhere the samplr key
 func samplrableFiles() []string {
 	var files []string
-	err := filepath.Walk(".", func(filePath string, file os.FileInfo, err error) error {
+
+	walkFunc := func(filePath string, file os.FileInfo, err error) error {
 		if !file.IsDir() && isSamplrable(filePath) {
 			files = append(files, filePath)
 		}
 		return nil
-	})
+	}
+
+	err := filepath.Walk(".", walkFunc)
 	if err != nil {
 		log.Fatal(err)
 	}
