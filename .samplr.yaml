@@ -4,8 +4,7 @@
 # Be careful to indent using spaces
 
 includes:
-  - \.yaml$
-  - Dockerfile$
+  - ^examples
 
 excludes:
   - \.go$
