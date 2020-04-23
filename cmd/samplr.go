@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"log"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -26,12 +27,24 @@ func sampleFile(filePath string) error {
 	}
 	defer func() { _ = input.Close() }()
 
-	output, err := os.Create(filePath + ".sample")
+	output, err := os.Create(outputPathFor(filePath))
 	if err != nil {
 		return err
 	}
 
 	return replicateFile(input, output)
+}
+
+// outputPathFor returns a sampe file path for a given path:
+// `myconfig.yaml` => `myconfig.sample.yaml`
+// `Dockerfile` => `Dockerfile.sample`
+func outputPathFor(filePath string) string {
+	ext := filepath.Ext(filePath)
+	if len(ext) > 0 {
+		filePathNoExt := strings.TrimSuffix(filePath, ext)
+		return filePathNoExt + ".sample" + ext
+	}
+	return filePath + ".sample"
 }
 
 func replicateFile(input *os.File, output *os.File) error {
