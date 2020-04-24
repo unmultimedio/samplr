@@ -1,0 +1,51 @@
+image: golang:1.14.0
+
+stages:
+  - deps
+  - test
+  - build
+
+# Globals
+
+variables:
+  REPO_NAME: gitlab.com/unmultimedio/samplr
+
+before_script:
+  - export GO111MODULE=on
+  - go version
+  - env
+  - go env
+  - find *
+
+cache:
+  paths:
+    - vendor/
+
+# Jobs
+
+pull dependencies:
+  stage: deps
+  script: 
+    - make deps
+
+run linters:
+  image: registry.gitlab.com/gitlab-org/gitlab-build-images:golangci-lint-alpine
+  stage: test
+  script:
+    - apk add --update make
+    - make checks
+
+unit tests:
+  stage: test
+  script:
+    - make test
+
+mac build:
+  stage: build
+  script:
+  - echo TODO
+
+linux build:
+  stage: build
+  script:
+  - echo TODO
