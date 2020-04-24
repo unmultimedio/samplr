@@ -41,15 +41,11 @@ unit tests:
     - make test
 
 mac build:
-  only:
-  - tags
   stage: build
   script:
   - echo TODO
 
 linux build:
-  only:
-  - tags
   stage: build
   script:
   - echo TODO
