@@ -40,12 +40,14 @@ unit tests:
   script:
     - make test
 
-mac build:
+build:
   stage: build
+  variables:
   script:
-  - echo TODO
+  - GOOS=darwin GOARCH=amd64 go build -o build/samplr_mac
+  - GOOS=linux GOARCH=amd64 go build -o build/samplr_linux
+  artifacts:
+    paths:
+    - build/samplr_mac
+    - build/samplr_linux
 
-linux build:
-  stage: build
-  script:
-  - echo TODO
