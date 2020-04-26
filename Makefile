@@ -1,7 +1,7 @@
 deps:
 	go mod tidy && go mod vendor
 
-checks:
+lint:
 	golangci-lint run -v
 
 test:
