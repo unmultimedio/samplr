@@ -1,4 +1,4 @@
-name: Go
+name: Go checks
 
 on:
   push:
@@ -8,8 +8,8 @@ on:
 
 jobs:
 
-  build:
-    name: Build
+  checks:
+    name: Checks
     runs-on: ubuntu-latest
     steps:
 
@@ -35,8 +35,3 @@ jobs:
       
     - name: Run tests
       run: make test
-
-    - name: Build
-      run: |
-        GOOS=darwin GOARCH=amd64 go build -o build/samplr_mac
-        GOOS=linux GOARCH=amd64 go build -o build/samplr_linux
