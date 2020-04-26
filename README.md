@@ -10,8 +10,8 @@ We all have `.gitignored` files in our repos. Many of those for security purpose
 
 Our real file:
 
-```yaml
-# configuration.yaml
+```yml
+# configuration.yml
 some: variables
 for: local
 or: stage
@@ -22,8 +22,8 @@ like: VERY_SECURE_PASSWORD
 
 Sample file that we commit:
 
-```yaml
-# configuration.yaml.sample
+```yml
+# configuration.yml.sample
 some: variables
 for: local
 or: stage
@@ -36,7 +36,7 @@ So we can gitignore the real one:
 
 ```gitignore
 # .gitignore
-configuration.yaml
+configuration.yml
 ```
 
 **And what's the issue with that?** With time we modify our code and settings in the real file, and it's not so long before we realize that we have a very old `.sample` file that poorly reflects the real one. That complicates new clones or new peers onboardings.
@@ -51,24 +51,24 @@ You need to use the special keyword `#samplr#` to obscure your secret lines, and
 
 So if you have
 
-```yaml
-# configuration.yaml
+```yml
+# configuration.yml
 public: foo
 secret: VERY_SECURE_PASSWORD
 ```
 
 And you want
 
-```yaml
-# configuration.sample.yaml
+```yml
+# configuration.sample.yml
 public: foo
 secret: <INSERT_PASS>
 ```
 
 You need to do
 
-```yaml
-# configuration.yaml
+```yml
+# configuration.yml
 public: foo
 #samplr#secret: <INSERT_PASS>
 secret: VERY_SECURE_PASSWORD
@@ -76,7 +76,7 @@ secret: VERY_SECURE_PASSWORD
 
 Focus on the line:
 
-```yaml
+```yml
 #samplr#secret: <INSERT_PASS>
 ```
 
@@ -87,9 +87,9 @@ That line will print everything after the keyword and will ignore the immediate 
 ## Samplr command
 
 When run, it will scan all of your directory files, and will generate sample files for files that meet these requirements:
-- file path matches with the [configuration file](.samplr.yaml) regex matches list
+- file path matches with the [configuration file](.samplr.yml) regex matches list
 - it includes the `#samplr#` keyword at least once
 
 ## Sample extension
 
-Generated sample files does not include the `.sample` at the end of the file, but before the real extension. This helps editor linting and coloring. This means your file `configuration.yaml` will generate a sample `configuration.sample.yaml` instead of `configuration.yaml.sample`. Files with no extension will have `.sample` appended at the end like `Dockerfile` to `Dockerfile.sample`.
+Generated sample files does not include the `.sample` at the end of the file, but before the real extension. This helps editor linting and coloring. This means your file `configuration.yml` will generate a sample `configuration.sample.yml` instead of `configuration.yml.sample`. Files with no extension will have `.sample` appended at the end like `Dockerfile` to `Dockerfile.sample`.
