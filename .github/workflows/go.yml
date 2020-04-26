@@ -19,6 +19,14 @@ jobs:
         go-version: 1.14
       id: go
 
+    - name: Initial setup
+      run: |
+        export GO111MODULE=on
+        go version
+        env
+        go env
+        find *
+
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
       
