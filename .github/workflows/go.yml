@@ -20,12 +20,7 @@ jobs:
       id: go
 
     - name: Initial setup
-      run: |
-        export GO111MODULE=on
-        go version
-        env
-        go env
-        find *
+      run: export GO111MODULE=on
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
