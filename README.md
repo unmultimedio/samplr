@@ -93,7 +93,3 @@ When run, it will scan all of your directory files, and will generate sample fil
 ## Sample extension
 
 Generated sample files does not include the `.sample` at the end of the file, but before the real extension. This helps editor linting and coloring. This means your file `configuration.yaml` will generate a sample `configuration.sample.yaml` instead of `configuration.yaml.sample`. Files with no extension will have `.sample` appended at the end like `Dockerfile` to `Dockerfile.sample`.
-
-## TODO
-
-See [this board](https://gitlab.com/unmultimedio/samplr/-/boards/1691854)
