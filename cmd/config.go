@@ -16,7 +16,7 @@ type Config struct {
 var config Config
 
 func loadConfig() {
-	f, err := os.Open(".samplr.yaml")
+	f, err := os.Open(".samplr.yml")
 	if err != nil {
 		log.Fatal(err)
 		return
