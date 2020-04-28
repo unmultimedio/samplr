@@ -26,13 +26,13 @@ wget https://github.com/unmultimedio/samplr/releases/download/v0.1.0/samplr-v0.1
 
 ### From source
 
-You don't want to mess with your secrets files. **This binary is not uploading or recording information in any way**, but if you want to make extra sure, that's ok.
+You don't want to mess with your secrets files, that's ok. **This tool does not record or upload information in any way**, binaries are automatically built and added to the releases using Github actions as defined [here](.github/workflows/release.yml), but if you want to make extra sure:
 
 - Install [go](https://golang.org/dl/).
 - Clone this repo and `cd` into it.
 - Do `go mod vendor` to download dependencies.
 - Do `go build -o ./build/samplr` to build the executable.
-- That will generate a binary at `./build/samplr`, do `chmod +x ./build/samplr` to give make it executable.
+- That will generate a binary at `./build/samplr`, do `chmod +x ./build/samplr` to make it executable.
 - Move that file into a directory included in your `PATH` (like `/usr/local/bin`).
 - The command `samplr` should be available now, enjoy!
 
