@@ -68,11 +68,11 @@ Setup your `.samplr.yml` configuration file at the root of your project. It uses
 # Example of .samplr.yml
 
 includes:
-- \.yaml$
-- \.yml$
+  - \.yaml$
+  - \.yml$
 
 excludes:
-- \.sample
+  - \.sample
 ```
 
 > For a file to be sampled, it has to meet **both** requirements, be included **and** not excluded.
@@ -224,3 +224,7 @@ samplr
 # List all changed and not-ignored files, with a filename that matches with ".sample", and add it to the commit
 git ls-files -mo --exclude-standard | grep "\.sample" | xargs git add
 ```
+
+## Examples
+
+Check examples for many type files [here](./examples).

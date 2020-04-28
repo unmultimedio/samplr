@@ -1,5 +1,12 @@
-FROM ubuntu:18.04
+FROM approved:image
+
+RUN echo "some command"
+
 COPY . /app
-#samplr#RUN make /mockapp
-RUN make /mockapp
-CMD python /app/app.py
+
+
+#samplr#RUN make /publicapp
+RUN make /publicapp
+
+#samplr#CMD some_command /publicapp/foo
+CMD some_command /publicapp/foo
