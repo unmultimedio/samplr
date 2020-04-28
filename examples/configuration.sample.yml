@@ -1,7 +1,9 @@
 # Some comments
 shareable_config: foo
+#samplr#secret_config: mocked
 secret_config: mocked
 public_config: bar
+#samplr## a comment that includes mocks
 # a comment that includes mocks
 
 
@@ -9,4 +11,5 @@ public_config: bar
 
 
 foo: foo
+#samplr#bar: barpublic
 bar: barpublic

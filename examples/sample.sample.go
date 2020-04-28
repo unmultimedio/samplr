@@ -10,9 +10,9 @@ package examples
 // you can do:
 
 // #samplr#const sampleToken = "REPLACE_ME_TOKEN"
-const token = "REAL_TOKEN"
+const sampleToken = "REPLACE_ME_TOKEN"
 
 var (
 	// #samplr#	sampleOtherToken = "REPLACE_ME_AGAIN"
-	otherToken = "REAL_SECOND_TOKEN"
+	sampleOtherToken = "REPLACE_ME_AGAIN"
 )
