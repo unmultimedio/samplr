@@ -1,3 +1,7 @@
+# This project used to live in Gitlab.
+# But you know, sadly open source projects
+# are not so discoverable over there.
+
 image: golang:1.14.0
 
 stages:

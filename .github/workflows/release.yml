@@ -23,12 +23,9 @@ jobs:
     - name: Get dependencies
       run: make deps
 
-    - name: Build linux
+    - name: Build binaries
       run: |
         GOOS=linux GOARCH=amd64 go build -o ./bin/samplr_linux
-
-    - name: Build mac
-      run: |
         GOOS=darwin GOARCH=amd64 go build -o ./bin/samplr_mac
 
     - name: Upload asset linux

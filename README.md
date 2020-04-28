@@ -2,6 +2,40 @@
 
 Autogenerate `.sample` files (and keep them updated!) after you `.gitignore` your real ones.
 
+## Installation
+
+:warning: This will override any `/usr/local/bin/samplr` pre-existing file.
+
+For Mac OS and Linux, this will download the binary, place it in a `PATH` directory, and make it executable.
+
+### Mac OS
+
+```sh
+wget https://github.com/unmultimedio/samplr/releases/download/v0.1.0/samplr-v0.1.0-mac \
+	-O /usr/local/bin/samplr && \
+	chmod +x /usr/local/bin/samplr
+```
+
+### Linux
+
+```sh
+wget https://github.com/unmultimedio/samplr/releases/download/v0.1.0/samplr-v0.1.0-linux \
+	-O /usr/local/bin/samplr && \
+	chmod +x /usr/local/bin/samplr
+```
+
+### From source
+
+You don't want to mess with your secrets files. **This binary is not uploading or recording information in any way**, but if you want to make extra sure, that's ok.
+
+- Install [go](https://golang.org/dl/).
+- Clone this repo and `cd` into it.
+- Do `go mod vendor` to download dependencies.
+- Do `go build -o ./bin/samplr` to build the executable.
+- That will generate a binary at `./bin/samplr`, do `chmod +x ./bin/samplr` to give make it executable.
+- Move that file into a directory included in your `PATH` (like `/usr/local/bin`).
+- The command `samplr` should be available now, enjoy!
+
 ## Why?
 
 We all have `.gitignored` files in our repos. Many of those for security purposes, like configuration files with secrets or frequently-changing URLs that we don't want to change, commit and clutter in every PR.
