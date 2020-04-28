@@ -1,5 +1,6 @@
 # Some comments
-shareable_config: foo
+foo: foo
+
 #samplr#secret_config: mocked
 secret_config: mocked
 public_config: bar
