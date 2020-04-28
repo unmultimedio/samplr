@@ -17,7 +17,6 @@ type Config struct {
 var (
 	config Config
 
-	// TODO support custom keywords
 	anyKeyCompile, _    = regexp.Compile("#(h|s)?samplr#")
 	keyCompile, _       = regexp.Compile("#samplr#")
 	hideKeyCompile, _   = regexp.Compile("#hsamplr#")
