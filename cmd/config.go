@@ -4,6 +4,7 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"regexp"
 
 	"gopkg.in/yaml.v2"
 )
@@ -13,7 +14,15 @@ type Config struct {
 	Excludes []string
 }
 
-var config Config
+var (
+	config Config
+
+	// TODO support custom keywords
+	anyKeyCompile, _    = regexp.Compile("#(h|s)?samplr#")
+	keyCompile, _       = regexp.Compile("#samplr#")
+	hideKeyCompile, _   = regexp.Compile("#hsamplr#")
+	secretKeyCompile, _ = regexp.Compile("#ssamplr#")
+)
 
 func loadConfig() {
 	f, err := os.Open(".samplr.yml")

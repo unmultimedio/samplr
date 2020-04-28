@@ -6,7 +6,6 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
-	"strings"
 )
 
 // samplrableFiles looks the complete directory and returns filepaths for samplrable files
@@ -47,7 +46,7 @@ func isSamplrable(filePath string) bool {
 
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
-		if strings.Contains(scanner.Text(), key) {
+		if anyKeyCompile.Match([]byte(scanner.Text())) {
 			log.Print("key in: " + filePath)
 			return true
 		}
