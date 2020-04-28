@@ -25,6 +25,6 @@ You don't want to mess with your secrets files, that's ok. **This tool does not 
 - Install [go](https://golang.org/dl/).
 - Clone this repo and `cd` into it.
 - Download dependencies with `go mod vendor`.
-- Go-install it with `go install` (this places it in `$GOBIN`).
+- Go-install it with `go install` (this places it in `$GOPATH/bin`).
 - (Optional) Build it with `go build` an and make it accessible somewhere in your `$PATH`.
 - The command `samplr` should be available now, enjoy!
