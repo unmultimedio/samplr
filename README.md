@@ -62,7 +62,7 @@ configuration.yml
 
 ### 1. Samplr config
 
-Setup your `.samplr.yml` configuration file at the root of your project. It uses regex matches for file paths. This one is a good start:
+Setup your `.samplr.yml` configuration file at the root of your project. It uses regex matches for file paths. Some example configs [here](./examples/.samplr.sample.yml), but this one is a good start:
 
 ```yml
 # Example of .samplr.yml
@@ -74,8 +74,6 @@ includes:
 excludes:
 - \.sample
 ```
-
-You can find more sample configs [here](./examples/.samplr.sample.yml).
 
 > For a file to be sampled, it has to meet **both** requirements, be included **and** not excluded.
 
@@ -190,12 +188,12 @@ foo: bar
 
 Run `samplr` at the root of your project. When run, it will scan all of your directory files, and will generate samples if:
 
-- file path matches with the [configuration file](#1-samplr-command) settings.
-- it includes at least one samplr keyword.
+- file path matches with the [configuration file](#1-samplr-config) settings.
+- it includes at least one [samplr keyword](#2-setup-your-original-files).
 
 ### 4. Check the samples
 
-Sample files does not include the `.sample` at the end of the file (if exists), but before the real extension _(which helps editor linting and coloring)_.
+Generated files does not include the `.sample` extension at the end of the file , but before the real extension (if exists), this helps editor linting and coloring.
 
 | Original filename | Generated sample filename |
 | ----------------- | ------------------------- |
