@@ -1,5 +1,5 @@
 includes:
-- ^examples
+  - ^examples
 
 excludes:
-- \.sample
+  - \.sample

@@ -201,3 +201,5 @@ Sample files does not include the `.sample` at the end of the file (if exists), 
 | ----------------- | ------------------------- |
 | configuration.yml | configuration.sample.yml  |
 | Dockerfile        | Dockerfile.sample         |
+
+<!-- TODO: Include githook as step 5 -->
