@@ -1,6 +1,6 @@
 # Samplr
 
-Autogenerate `.sample` files (and keep them updated!) after you `.gitignore` your real ones.
+**Samplr** is a command built in Go, that will generate updated commitable sample files, while you keep original ones git-ignored. _You don't need to have Go installed to use it_.
 
 ## Installation
 
