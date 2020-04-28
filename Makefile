@@ -8,4 +8,4 @@ release:
 	go build -o ./build/samplr
 
 test:
-	go test ./... -v -race
+	go test ./... -v -race -cover
