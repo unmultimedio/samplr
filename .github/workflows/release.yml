@@ -23,13 +23,10 @@ jobs:
     - name: Get dependencies
       run: make deps
 
-    - name: Build linux
+    - name: Build binaries
       run: |
-        GOOS=linux GOARCH=amd64 go build -o ./bin/samplr_linux
-
-    - name: Build mac
-      run: |
-        GOOS=darwin GOARCH=amd64 go build -o ./bin/samplr_mac
+        GOOS=linux GOARCH=amd64 go build -o ./build/samplr_linux
+        GOOS=darwin GOARCH=amd64 go build -o ./build/samplr_mac
 
     - name: Upload asset linux
       uses: actions/upload-release-asset@v1.0.1
@@ -37,7 +34,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./bin/samplr_linux
+        asset_path: ./build/samplr_linux
         asset_name: samplr-${{ github.event.release.tag_name }}-linux
         asset_content_type: binary/octet-stream
 
@@ -47,6 +44,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ github.event.release.upload_url }}
-        asset_path: ./bin/samplr_mac
+        asset_path: ./build/samplr_mac
         asset_name: samplr-${{ github.event.release.tag_name }}-mac
         asset_content_type: binary/octet-stream
