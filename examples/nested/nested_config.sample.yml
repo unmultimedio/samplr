@@ -1,16 +1,11 @@
-# Some comments
+# Some sample comments
 foo: foo
 
-#samplr#secret_config: mocked
-secret_config: mocked
-public_config: bar
-#samplr## a comment that includes mocks
-# a comment that includes mocks
+#samplr#secret: replace me
+secret: replace me
 
+previous_line: successfully hidden
 
-# blank lines
+this_line: should render normally
 
-
-foo: foo
-#samplr#bar: barpublic
-bar: barpublic
+bar: bar
