@@ -1,5 +1,5 @@
-# Some comments
-shareable_config: foo
+# Some sample comments
+foo: foo
 
 #samplr#secret: replace me
 secret: should not render
@@ -10,4 +10,4 @@ previous_line: this should not render
 #ssamplr# SECRET! This should not render
 this_line: should render normally
 
-foo: foo
+bar: bar

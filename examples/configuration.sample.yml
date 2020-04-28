@@ -6,9 +6,7 @@ public_config: bar
 #samplr## a comment that includes mocks
 # a comment that includes mocks
 
-
 # blank lines
-
 
 foo: foo
 #samplr#bar: barpublic

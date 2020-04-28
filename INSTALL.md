@@ -2,8 +2,6 @@
 
 _:warning: This will override any `/usr/local/bin/samplr` pre-existing file._
 
-For Mac OS and Linux, this will download the binary, place it in a `PATH` directory, and make it executable.
-
 ## Mac OS
 
 ```sh
@@ -26,6 +24,7 @@ You don't want to mess with your secrets files, that's ok. **This tool does not 
 
 - Install [go](https://golang.org/dl/).
 - Clone this repo and `cd` into it.
-- Do `go mod vendor` to download dependencies.
-- Do `go install` to build the executable, and place it in the `GOBIN` path.
+- Download dependencies with `go mod vendor`.
+- Go-install it with `go install` (this places it in `$GOBIN`).
+- (Optional) Build it with `go build` an and make it accessible somewhere in your `$PATH`.
 - The command `samplr` should be available now, enjoy!
