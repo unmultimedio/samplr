@@ -31,9 +31,7 @@ You don't want to mess with your secrets files, that's ok. **This tool does not 
 - Install [go](https://golang.org/dl/).
 - Clone this repo and `cd` into it.
 - Do `go mod vendor` to download dependencies.
-- Do `go build -o ./build/samplr` to build the executable.
-- That will generate a binary at `./build/samplr`, do `chmod +x ./build/samplr` to make it executable.
-- Move that file into a directory included in your `PATH` (like `/usr/local/bin`).
+- Do `go install` to build the executable, and place it in the `GOBIN` path.
 - The command `samplr` should be available now, enjoy!
 
 ## Why?
