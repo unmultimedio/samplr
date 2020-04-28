@@ -4,7 +4,7 @@ Autogenerate `.sample` files (and keep them updated!) after you `.gitignore` you
 
 ## Installation
 
-:warning: This will override any `/usr/local/bin/samplr` pre-existing file.
+_:warning: This will override any `/usr/local/bin/samplr` pre-existing file._
 
 For Mac OS and Linux, this will download the binary, place it in a `PATH` directory, and make it executable.
 
@@ -12,16 +12,16 @@ For Mac OS and Linux, this will download the binary, place it in a `PATH` direct
 
 ```sh
 wget https://github.com/unmultimedio/samplr/releases/download/v0.1.0/samplr-v0.1.0-mac \
-	-O /usr/local/bin/samplr && \
-	chmod +x /usr/local/bin/samplr
+  -O /usr/local/bin/samplr && \
+  chmod +x /usr/local/bin/samplr
 ```
 
 ### Linux
 
 ```sh
 wget https://github.com/unmultimedio/samplr/releases/download/v0.1.0/samplr-v0.1.0-linux \
-	-O /usr/local/bin/samplr && \
-	chmod +x /usr/local/bin/samplr
+  -O /usr/local/bin/samplr && \
+  chmod +x /usr/local/bin/samplr
 ```
 
 ### From source

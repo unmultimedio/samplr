@@ -1,6 +1,6 @@
 # This project used to live in Gitlab.
-# But you know, sadly open source projects
-# are not so discoverable over there.
+# But you know, open source projects
+# are not so discoverable over there :(
 
 image: golang:1.14.0
 
