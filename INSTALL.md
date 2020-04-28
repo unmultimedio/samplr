@@ -1,6 +1,6 @@
 # Samplr Installation
 
-_:warning: This will override any `/usr/local/bin/samplr` pre-existing file._
+_:warning: This will override any `/usr/local/bin/samplr` pre-existing file, which means the same command will be used to update._
 
 ## Mac OS
 
