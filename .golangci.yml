@@ -2,6 +2,8 @@
 
 run:
   modules-download-mode: vendor
+  skip-dirs:
+    - ./examples
 
 linters-settings:
   golint:

@@ -9,8 +9,6 @@ import (
 	"strings"
 )
 
-const key = "#samplr#"
-
 // Sample samples the project
 func Sample() {
 	for _, path := range samplrableFiles() {
@@ -70,10 +68,17 @@ func replicateFile(input *os.File, output *os.File) error {
 
 // sampleLine returns sampled line and flag to skip next one
 func sampleLine(l string) (string, bool) {
-	i := strings.LastIndex(l, key)
-	if i == -1 {
-		return l + "\n", false
+	if secretKeyCompile.Match([]byte(l)) {
+		return "", false
 	}
 
-	return l[i+len(key):] + "\n", true
+	if m := hideKeyCompile.FindAllIndex([]byte(l), 1); m != nil {
+		return l[m[0][1]:] + "\n", true
+	}
+
+	if m := keyCompile.FindAllIndex([]byte(l), 1); m != nil {
+		return l + "\n" + l[m[0][1]:] + "\n", true
+	}
+
+	return l + "\n", false
 }

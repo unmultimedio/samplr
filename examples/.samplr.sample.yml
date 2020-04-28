@@ -1,0 +1,13 @@
+# Write here your regex matches for
+# filenames that you want to include
+# or exclude from the samplr generation
+# Be careful to indent using spaces
+
+includes:
+  - ^config # Matches files like ./config/setup.yml or ./configuration/script.sh 
+  - \.yml$ # Matches all .yml files in the project
+  - Dockerfile # Matches all Dockerfile in the project
+
+excludes:
+  - \.sample # It's a good idea to exclude all *.sample* files, otherwise it will behave recursively
+  - \.go$ # Most of the times, the code files won't need samples

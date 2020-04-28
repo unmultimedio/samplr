@@ -1,0 +1,11 @@
+# Some comments
+shareable_config: foo
+
+#samplr#secret: replace me
+secret: replace me
+
+previous_line: successfully hidden
+
+this_line: should render normally
+
+foo: foo
