@@ -11,3 +11,5 @@ includes:
 excludes:
   - \.sample # It's a good idea to exclude all *.sample* files, otherwise it will behave recursively
   - \.go$ # Most of the times, the code files won't need samples
+  - ^vendor # Dependencies shouldn't be sampled
+  - ^node-modules # Dependencies shouldn't be sampled
