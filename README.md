@@ -1,6 +1,11 @@
 # Samplr
 
-**Samplr** is a command built in Go, that will generate updated commitable sample files, while you keep original ones git-ignored. _You don't need to have Go installed to use it_.
+**Samplr** is a language-agnostic command that will generate updated commitable sample files, while you keep original ones git-ignored.
+
+<a target="_blank" href="https://youtu.be/g85wHOZSdxU">
+  See it in action (1m video)<br/>
+  <img src="https://img.youtube.com/vi/g85wHOZSdxU/maxresdefault.jpg" alt="Samplr" width="400"/>
+</a>
 
 ## Installation
 
