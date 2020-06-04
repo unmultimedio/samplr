@@ -6,6 +6,5 @@ import (
 )
 
 func main() {
-	cmd.Init()
-	cmd.Sample()
+	_ = cmd.Execute()
 }

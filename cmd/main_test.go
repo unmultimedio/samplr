@@ -1,5 +1,7 @@
 package cmd
 
+import "github.com/op/go-logging"
+
 func init() {
-	config = &Config{}
+	logger = logging.MustGetLogger("samplr_test")
 }
