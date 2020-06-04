@@ -3,7 +3,6 @@ package cmd
 
 import (
 	"bufio"
-	"log"
 	"os"
 	"path/filepath"
 	"strings"
@@ -13,7 +12,7 @@ import (
 func Sample() {
 	for _, path := range samplrableFiles() {
 		if err := sampleFile(path); err != nil {
-			log.Fatal(err)
+			logger.Error(err)
 		}
 	}
 }
@@ -61,7 +60,7 @@ func replicateFile(input *os.File, output *os.File) error {
 		}
 	}
 	defer func() { _ = writer.Flush() }()
-	log.Print("sample generated: " + output.Name())
+	logger.Info("sample generated: " + output.Name())
 
 	return scanner.Err()
 }

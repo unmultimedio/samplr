@@ -2,10 +2,11 @@ package cmd
 
 import (
 	"bufio"
-	"log"
 	"os"
 	"path/filepath"
 	"regexp"
+
+	"github.com/spf13/viper"
 )
 
 // samplrableFiles looks the complete directory and returns filepaths for samplrable files
@@ -23,7 +24,7 @@ func samplrableFiles() []string {
 
 	err := filepath.Walk(".", walkFunc)
 	if err != nil {
-		log.Fatal(err)
+		logger.Error(err)
 	}
 
 	return files
@@ -32,14 +33,14 @@ func samplrableFiles() []string {
 // isSamplrable checks that a file is included in patterns, and includes the keywords
 func isSamplrable(filePath string) bool {
 	if !isSamplrablePath(filePath) {
-		// log.Print("ignored: " + filePath)
+		logger.Debug("ignored: " + filePath)
 		return false
 	}
-	log.Print("matches: " + filePath)
+	logger.Info("matches: " + filePath)
 
 	f, err := os.Open(filePath)
 	if err != nil {
-		log.Fatal(err)
+		logger.Error(err)
 		return false
 	}
 	defer func() { _ = f.Close() }()
@@ -47,14 +48,14 @@ func isSamplrable(filePath string) bool {
 	scanner := bufio.NewScanner(f)
 	for scanner.Scan() {
 		if anyKeyCompile.Match([]byte(scanner.Text())) {
-			log.Print("key in: " + filePath)
+			logger.Info("key in: " + filePath)
 			return true
 		}
 	}
-	log.Print("key not in: " + filePath)
+	logger.Info("key not in: " + filePath)
 
 	if err := scanner.Err(); err != nil {
-		log.Fatal(err)
+		logger.Error(err)
 		return false
 	}
 
@@ -65,7 +66,7 @@ func isSamplrablePath(filePath string) bool {
 	included := pathMatches(filePath, true)
 	excluded := pathMatches(filePath, false)
 	if included && excluded {
-		log.Print("excluded: " + filePath)
+		logger.Info("excluded: " + filePath)
 	}
 
 	// Matches if included and not excluded
@@ -76,16 +77,16 @@ func isSamplrablePath(filePath string) bool {
 func pathMatches(filePath string, includes bool) bool {
 	var patterns []string
 	if includes {
-		patterns = config.Includes
+		patterns = viper.GetStringSlice("includes")
 	} else {
-		patterns = config.Excludes
+		patterns = viper.GetStringSlice("excludes")
 	}
 
 	var matches bool
 	for _, pattern := range patterns {
 		m, err := regexp.Match(pattern, []byte(filePath))
 		if err != nil {
-			log.Fatal(err)
+			logger.Error(err)
 			continue
 		}
 		if m {
