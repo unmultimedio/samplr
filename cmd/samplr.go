@@ -72,13 +72,15 @@ func sampleLine(l string) (string, bool) {
 	}
 
 	if m := hideKeyCompile.FindAllIndex([]byte(l), 1); m != nil {
-		return l[m[0][1]:] + "\n", true
+		m1 := m[0] // we only care about first match
+		outputLine := l[0:m1[0]] + l[m1[1]:]
+		return outputLine + "\n", true
 	}
 
 	if m := keyCompile.FindAllIndex([]byte(l), 1); m != nil {
 		m1 := m[0] // we only care about first match
-		secondLine := l[0:m1[0]] + l[m1[1]:]
-		return l + "\n" + secondLine + "\n", true
+		nextLine := l[0:m1[0]] + l[m1[1]:]
+		return l + "\n" + nextLine + "\n", true
 	}
 
 	return l + "\n", false

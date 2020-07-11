@@ -86,31 +86,43 @@ func TestSamplrKey(t *testing.T) {
 	}
 }
 
-func TestSampleLineHideKey(t *testing.T) {
-	const hideKey = "#hsamplr#"
-	var l string
-	var skip bool
+func TestHideSamplrKey(t *testing.T) {
+	const key = "#hsamplr#"
 
-	l, skip = sampleLine(fmt.Sprintf("%scontent", hideKey))
-	assert.Equal(t, "content\n", l)
-	assert.True(t, skip)
+	testCases := []struct {
+		input          string
+		expectedOutput string
+	}{
+		{
+			input:          key,
+			expectedOutput: "",
+		},
+		{
+			input:          key + "some content",
+			expectedOutput: "some content",
+		},
+		{
+			input:          key + " with lead spaces",
+			expectedOutput: " with lead spaces",
+		},
+		{
+			// With many keys, it just respects the first one
+			input:          key + "many" + key + "keys" + key,
+			expectedOutput: "many" + key + "keys" + key,
+		},
+		{
+			input:          "  " + key + "space before key",
+			expectedOutput: "  space before key",
+		},
+		{
+			input:          "  content-" + key + "+before key",
+			expectedOutput: "  content-+before key",
+		},
+	}
 
-	// Keeps identation
-	l, skip = sampleLine(fmt.Sprintf("   %scontent", hideKey))
-	assert.Equal(t, "   content\n", l)
-	assert.True(t, skip)
-}
-
-func TestSampleLineSecretKey(t *testing.T) {
-	const secretKey = "#ssamplr#"
-	var l string
-	var skip bool
-
-	l, skip = sampleLine(fmt.Sprintf("%scontent", secretKey))
-	assert.Equal(t, "", l)
-	assert.False(t, skip)
-
-	l, skip = sampleLine(fmt.Sprintf("   %scontent", secretKey))
-	assert.Equal(t, "", l)
-	assert.False(t, skip)
+	for _, tc := range testCases {
+		actualOutput, actualSkip := sampleLine(tc.input)
+		assert.Equal(t, tc.expectedOutput+"\n", actualOutput)
+		assert.Equal(t, true, actualSkip)
+	}
 }
