@@ -67,12 +67,14 @@ var testCases = []struct {
 		expectedSecondLine: " many %s keys %s",
 	},
 	{
-		input:              "  %s space before key",
-		expectedSecondLine: "   space before key",
+		// space before key is removed
+		input:              "  %sspace before key",
+		expectedSecondLine: "space before key",
 	},
 	{
-		input:              "content-%s+before key",
-		expectedSecondLine: "content-+before key",
+		// any content before key is removed
+		input:              "before-%s+after",
+		expectedSecondLine: "+after",
 	},
 }
 
@@ -104,7 +106,7 @@ func TestSamplrHideKey(t *testing.T) {
 	}
 }
 
-func TestSecretHideKey(t *testing.T) {
+func TestSamplrSecretKey(t *testing.T) {
 	const skey = "#ssamplr#"
 
 	for _, tc := range testCases {

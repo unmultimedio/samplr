@@ -12,5 +12,8 @@ bar: bar
 
 some:
   nested:
-    #samplr#data: public
-data: public
+    #samplr#    data: secret
+    data: secret
+
+    # next key line should not render
+    data: public
