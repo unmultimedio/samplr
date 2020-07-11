@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -44,124 +45,71 @@ func TestSamplrNoKeys(t *testing.T) {
 	assert.Equal(t, false, skip)
 }
 
-func TestSamplrKey(t *testing.T) {
+var testCases = []struct {
+	input              string
+	expectedSecondLine string
+}{
+	{
+		input:              "%s",
+		expectedSecondLine: "",
+	},
+	{
+		input:              "%ssome content",
+		expectedSecondLine: "some content",
+	},
+	{
+		input:              "%s with lead spaces",
+		expectedSecondLine: " with lead spaces",
+	},
+	{
+		// With many keys, it just respects the first one
+		input:              "%s many %s keys %s",
+		expectedSecondLine: " many %s keys %s",
+	},
+	{
+		input:              "  %s space before key",
+		expectedSecondLine: "   space before key",
+	},
+	{
+		input:              "content-%s+before key",
+		expectedSecondLine: "content-+before key",
+	},
+}
+
+func TestSamplrRegularKey(t *testing.T) {
 	const key = "#samplr#"
 
-	testCases := []struct {
-		input              string
-		expectedSecondLine string
-	}{
-		{
-			input:              key,
-			expectedSecondLine: "",
-		},
-		{
-			input:              key + "some content",
-			expectedSecondLine: "some content",
-		},
-		{
-			input:              key + " with lead spaces",
-			expectedSecondLine: " with lead spaces",
-		},
-		{
-			// With many keys, it just respects the first one
-			input:              key + "many" + key + "keys" + key,
-			expectedSecondLine: "many" + key + "keys" + key,
-		},
-		{
-			input:              "  " + key + "space before key",
-			expectedSecondLine: "  space before key",
-		},
-		{
-			input:              "  content-" + key + "+before key",
-			expectedSecondLine: "  content-+before key",
-		},
-	}
-
 	for _, tc := range testCases {
-		actualOutput, actualSkip := sampleLine(tc.input)
+		tc.input = strings.ReplaceAll(tc.input, "%s", key)
+		tc.expectedSecondLine = strings.ReplaceAll(tc.expectedSecondLine, "%s", key)
 		expectedOutput := tc.input + "\n" + tc.expectedSecondLine + "\n"
+
+		actualOutput, actualSkip := sampleLine(tc.input)
 		assert.Equal(t, expectedOutput, actualOutput)
 		assert.Equal(t, true, actualSkip)
 	}
 }
 
-func TestHideSamplrKey(t *testing.T) {
-	const key = "#hsamplr#"
-
-	testCases := []struct {
-		input          string
-		expectedOutput string
-	}{
-		{
-			input:          key,
-			expectedOutput: "",
-		},
-		{
-			input:          key + "some content",
-			expectedOutput: "some content",
-		},
-		{
-			input:          key + " with lead spaces",
-			expectedOutput: " with lead spaces",
-		},
-		{
-			// With many keys, it just respects the first one
-			input:          key + "many" + key + "keys" + key,
-			expectedOutput: "many" + key + "keys" + key,
-		},
-		{
-			input:          "  " + key + "space before key",
-			expectedOutput: "  space before key",
-		},
-		{
-			input:          "  content-" + key + "+before key",
-			expectedOutput: "  content-+before key",
-		},
-	}
+func TestSamplrHideKey(t *testing.T) {
+	const hkey = "#hsamplr#"
 
 	for _, tc := range testCases {
+		tc.input = strings.ReplaceAll(tc.input, "%s", hkey)
+		tc.expectedSecondLine = strings.ReplaceAll(tc.expectedSecondLine, "%s", hkey)
+		expectedOutput := tc.expectedSecondLine + "\n"
+
 		actualOutput, actualSkip := sampleLine(tc.input)
-		assert.Equal(t, tc.expectedOutput+"\n", actualOutput)
+		assert.Equal(t, expectedOutput, actualOutput)
 		assert.Equal(t, true, actualSkip)
 	}
 }
 
-func TestSecretSamplrKey(t *testing.T) {
-	const key = "#ssamplr#"
-
-	testCases := []struct {
-		input          string
-		expectedOutput string
-	}{
-		{
-			input:          key,
-			expectedOutput: "",
-		},
-		{
-			input:          key + "some content",
-			expectedOutput: "some content",
-		},
-		{
-			input:          key + " with lead spaces",
-			expectedOutput: " with lead spaces",
-		},
-		{
-			// With many keys, it just respects the first one
-			input:          key + "many" + key + "keys" + key,
-			expectedOutput: "many" + key + "keys" + key,
-		},
-		{
-			input:          "  " + key + "space before key",
-			expectedOutput: "  space before key",
-		},
-		{
-			input:          "  content-" + key + "+before key",
-			expectedOutput: "  content-+before key",
-		},
-	}
+func TestSecretHideKey(t *testing.T) {
+	const skey = "#ssamplr#"
 
 	for _, tc := range testCases {
+		tc.input = strings.ReplaceAll(tc.input, "%s", skey)
+
 		actualOutput, actualSkip := sampleLine(tc.input)
 		assert.Empty(t, actualOutput)
 		assert.Equal(t, false, actualSkip)
