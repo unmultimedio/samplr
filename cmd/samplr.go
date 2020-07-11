@@ -6,8 +6,6 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
-
-	"github.com/spf13/viper"
 )
 
 // Sample samples the project
@@ -50,7 +48,7 @@ func replicateFile(input *os.File, output *os.File) error {
 	scanner := bufio.NewScanner(input)
 	writer := bufio.NewWriter(output)
 
-	if viper.GetBool("autogencomments") {
+	if runConfig.autogencomments {
 		fileExt := filepath.Ext(output.Name())
 		h := CommentFor(fileExt)
 		if _, err := writer.WriteString(h); err != nil {
