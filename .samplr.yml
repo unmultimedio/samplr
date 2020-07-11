@@ -1,5 +1,6 @@
+autogencomments: true
+excludes:
+  - \.sample
 includes:
   - ^examples
 
-excludes:
-  - \.sample

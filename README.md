@@ -67,20 +67,7 @@ configuration.yml
 
 ### 1. Samplr config
 
-Setup your `.samplr.yml` configuration file at the root of your project. It uses regex matches for file paths. Some example configs [here](./examples/.samplr.sample.yml), but this one is a good start:
-
-```yml
-# Example of .samplr.yml
-
-includes:
-  - \.yaml$
-  - \.yml$
-
-excludes:
-  - \.sample
-```
-
-> For a file to be sampled, it has to meet **both** requirements, be included **and** not excluded.
+Setup your `.samplr.yml` configuration file at the root of your project. It uses regex matches for file paths. Some example configs [here](./examples/.samplr.sample.yml)
 
 ### 2. Setup your original files
 
