@@ -2,6 +2,7 @@ package cmd
 
 import (
 	"fmt"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -37,54 +38,82 @@ func TestOutputPathFor(t *testing.T) {
 	)
 }
 
-func TestSampleLineKey(t *testing.T) {
+func TestSamplrNoKeys(t *testing.T) {
+	input := "some line with no special keys"
+	output, skip := sampleLine(input)
+	assert.Equal(t, input+"\n", output)
+	assert.Equal(t, false, skip)
+}
+
+var testCases = []struct {
+	input              string
+	expectedSecondLine string
+}{
+	{
+		input:              "%s",
+		expectedSecondLine: "",
+	},
+	{
+		input:              "%ssome content",
+		expectedSecondLine: "some content",
+	},
+	{
+		input:              "%s with lead spaces",
+		expectedSecondLine: " with lead spaces",
+	},
+	{
+		// With many keys, it just respects the first one
+		input:              "%s many %s keys %s",
+		expectedSecondLine: " many %s keys %s",
+	},
+	{
+		// space before key is removed
+		input:              "  %sspace before key",
+		expectedSecondLine: "space before key",
+	},
+	{
+		// any content before key is removed
+		input:              "before-%s+after",
+		expectedSecondLine: "+after",
+	},
+}
+
+func TestSamplrRegularKey(t *testing.T) {
 	const key = "#samplr#"
-	var l string
-	var skip bool
 
-	l, skip = sampleLine(fmt.Sprintf("%scontent", key))
-	assert.Equal(t, fmt.Sprintf("%scontent\ncontent\n", key), l)
-	assert.True(t, skip)
+	for _, tc := range testCases {
+		tc.input = strings.ReplaceAll(tc.input, "%s", key)
+		tc.expectedSecondLine = strings.ReplaceAll(tc.expectedSecondLine, "%s", key)
+		expectedOutput := tc.input + "\n" + tc.expectedSecondLine + "\n"
 
-	l, skip = sampleLine(fmt.Sprintf("   %scontent", key))
-	assert.Equal(t, fmt.Sprintf("   %scontent\ncontent\n", key), l)
-	assert.True(t, skip)
-
-	// Does not keep relative space for content
-	l, skip = sampleLine(fmt.Sprintf("   %scontent", key))
-	assert.NotEqual(t, fmt.Sprintf("   %scontent\n   content\n", key), l)
-	assert.True(t, skip)
+		actualOutput, actualSkip := sampleLine(tc.input)
+		assert.Equal(t, expectedOutput, actualOutput)
+		assert.Equal(t, true, actualSkip)
+	}
 }
 
-func TestSampleLineHideKey(t *testing.T) {
-	const hideKey = "#hsamplr#"
-	var l string
-	var skip bool
+func TestSamplrHideKey(t *testing.T) {
+	const hkey = "#hsamplr#"
 
-	l, skip = sampleLine(fmt.Sprintf("%scontent", hideKey))
-	assert.Equal(t, "content\n", l)
-	assert.True(t, skip)
+	for _, tc := range testCases {
+		tc.input = strings.ReplaceAll(tc.input, "%s", hkey)
+		tc.expectedSecondLine = strings.ReplaceAll(tc.expectedSecondLine, "%s", hkey)
+		expectedOutput := tc.expectedSecondLine + "\n"
 
-	l, skip = sampleLine(fmt.Sprintf("   %scontent", hideKey))
-	assert.Equal(t, "content\n", l)
-	assert.True(t, skip)
-
-	// Does not keep relative space for content
-	l, skip = sampleLine(fmt.Sprintf("   %scontent", hideKey))
-	assert.NotEqual(t, "   content\n", l)
-	assert.True(t, skip)
+		actualOutput, actualSkip := sampleLine(tc.input)
+		assert.Equal(t, expectedOutput, actualOutput)
+		assert.Equal(t, true, actualSkip)
+	}
 }
 
-func TestSampleLineSecretKey(t *testing.T) {
-	const secretKey = "#ssamplr#"
-	var l string
-	var skip bool
+func TestSamplrSecretKey(t *testing.T) {
+	const skey = "#ssamplr#"
 
-	l, skip = sampleLine(fmt.Sprintf("%scontent", secretKey))
-	assert.Equal(t, "", l)
-	assert.False(t, skip)
+	for _, tc := range testCases {
+		tc.input = strings.ReplaceAll(tc.input, "%s", skey)
 
-	l, skip = sampleLine(fmt.Sprintf("   %scontent", secretKey))
-	assert.Equal(t, "", l)
-	assert.False(t, skip)
+		actualOutput, actualSkip := sampleLine(tc.input)
+		assert.Empty(t, actualOutput)
+		assert.Equal(t, false, actualSkip)
+	}
 }

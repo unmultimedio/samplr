@@ -4,10 +4,19 @@ foo: foo
 #samplr#secret: replace me
 secret: should not render
 
-# Should not render #hsamplr#previous_line: successfully hidden
+# This line should not render #hsamplr#previous_line: successfully hidden
 previous_line: this should not render
 
 #ssamplr# SECRET! This should not render
 this_line: should render normally
 
 bar: bar
+
+some:
+  nested:
+    #samplr#    data: secret
+    data: secret
+
+    # next key line should not render
+    #hsamplr#    data: public
+    data: secret
