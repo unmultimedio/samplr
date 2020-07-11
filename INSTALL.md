@@ -5,16 +5,16 @@ _:warning: This will override any `/usr/local/bin/samplr` pre-existing file, whi
 ## Mac OS
 
 ```sh
-wget https://github.com/unmultimedio/samplr/releases/download/v0.2.0/samplr-v0.2.0-mac \
-  -O /usr/local/bin/samplr && \
+curl https://github.com/unmultimedio/samplr/releases/download/v0.2.0/samplr-v0.2.0-mac \
+  -L -o /usr/local/bin/samplr && \
   chmod +x /usr/local/bin/samplr
 ```
 
 ## Linux
 
 ```sh
-wget https://github.com/unmultimedio/samplr/releases/download/v0.2.0/samplr-v0.2.0-linux \
-  -O /usr/local/bin/samplr && \
+curl https://github.com/unmultimedio/samplr/releases/download/v0.2.0/samplr-v0.2.0-linux \
+  -L -o /usr/local/bin/samplr && \
   chmod +x /usr/local/bin/samplr
 ```
 
