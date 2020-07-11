@@ -5,8 +5,6 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
-
-	"github.com/spf13/viper"
 )
 
 // samplrableFiles looks the complete directory and returns filepaths for samplrable files
@@ -77,23 +75,19 @@ func isSamplrablePath(filePath string) bool {
 func pathMatches(filePath string, includes bool) bool {
 	var patterns []string
 	if includes {
-		patterns = viper.GetStringSlice("includes")
+		patterns = runConfig.includes
 	} else {
-		patterns = viper.GetStringSlice("excludes")
+		patterns = runConfig.excludes
 	}
 
-	var matches bool
 	for _, pattern := range patterns {
 		m, err := regexp.Match(pattern, []byte(filePath))
 		if err != nil {
 			logger.Error(err)
-			continue
-		}
-		if m {
-			matches = true
-			break
+		} else if m {
+			return true
 		}
 	}
 
-	return matches
+	return false
 }
