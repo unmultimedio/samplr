@@ -5,7 +5,7 @@ _:warning: This will override any `/usr/local/bin/samplr` pre-existing file, whi
 ## Mac OS
 
 ```sh
-curl https://github.com/unmultimedio/samplr/releases/download/v0.2.0/samplr-v0.2.0-mac \
+curl https://github.com/unmultimedio/samplr/releases/download/v0.2.1/samplr-v0.2.1-mac \
   -L -o /usr/local/bin/samplr && \
   chmod +x /usr/local/bin/samplr
 ```
@@ -13,7 +13,7 @@ curl https://github.com/unmultimedio/samplr/releases/download/v0.2.0/samplr-v0.2
 ## Linux
 
 ```sh
-curl https://github.com/unmultimedio/samplr/releases/download/v0.2.0/samplr-v0.2.0-linux \
+curl https://github.com/unmultimedio/samplr/releases/download/v0.2.1/samplr-v0.2.1-linux \
   -L -o /usr/local/bin/samplr && \
   chmod +x /usr/local/bin/samplr
 ```
