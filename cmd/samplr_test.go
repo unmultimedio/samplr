@@ -126,3 +126,44 @@ func TestHideSamplrKey(t *testing.T) {
 		assert.Equal(t, true, actualSkip)
 	}
 }
+
+func TestSecretSamplrKey(t *testing.T) {
+	const key = "#ssamplr#"
+
+	testCases := []struct {
+		input          string
+		expectedOutput string
+	}{
+		{
+			input:          key,
+			expectedOutput: "",
+		},
+		{
+			input:          key + "some content",
+			expectedOutput: "some content",
+		},
+		{
+			input:          key + " with lead spaces",
+			expectedOutput: " with lead spaces",
+		},
+		{
+			// With many keys, it just respects the first one
+			input:          key + "many" + key + "keys" + key,
+			expectedOutput: "many" + key + "keys" + key,
+		},
+		{
+			input:          "  " + key + "space before key",
+			expectedOutput: "  space before key",
+		},
+		{
+			input:          "  content-" + key + "+before key",
+			expectedOutput: "  content-+before key",
+		},
+	}
+
+	for _, tc := range testCases {
+		actualOutput, actualSkip := sampleLine(tc.input)
+		assert.Empty(t, actualOutput)
+		assert.Equal(t, false, actualSkip)
+	}
+}
