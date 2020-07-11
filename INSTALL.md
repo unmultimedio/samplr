@@ -5,7 +5,7 @@ _:warning: This will override any `/usr/local/bin/samplr` pre-existing file, whi
 ## Mac OS
 
 ```sh
-wget https://github.com/unmultimedio/samplr/releases/download/v0.1.0/samplr-v0.1.0-mac \
+wget https://github.com/unmultimedio/samplr/releases/download/v0.2.0/samplr-v0.2.0-mac \
   -O /usr/local/bin/samplr && \
   chmod +x /usr/local/bin/samplr
 ```
@@ -13,7 +13,7 @@ wget https://github.com/unmultimedio/samplr/releases/download/v0.1.0/samplr-v0.1
 ## Linux
 
 ```sh
-wget https://github.com/unmultimedio/samplr/releases/download/v0.1.0/samplr-v0.1.0-linux \
+wget https://github.com/unmultimedio/samplr/releases/download/v0.2.0/samplr-v0.2.0-linux \
   -O /usr/local/bin/samplr && \
   chmod +x /usr/local/bin/samplr
 ```
