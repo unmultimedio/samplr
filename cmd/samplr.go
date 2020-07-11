@@ -76,7 +76,9 @@ func sampleLine(l string) (string, bool) {
 	}
 
 	if m := keyCompile.FindAllIndex([]byte(l), 1); m != nil {
-		return l + "\n" + l[m[0][1]:] + "\n", true
+		m1 := m[0] // we only care about first match
+		secondLine := l[0:m1[0]] + l[m1[1]:]
+		return l + "\n" + secondLine + "\n", true
 	}
 
 	return l + "\n", false

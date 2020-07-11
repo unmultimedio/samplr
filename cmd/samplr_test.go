@@ -37,23 +37,53 @@ func TestOutputPathFor(t *testing.T) {
 	)
 }
 
-func TestSampleLineKey(t *testing.T) {
+func TestSamplrNoKeys(t *testing.T) {
+	input := "some line with no special keys"
+	output, skip := sampleLine(input)
+	assert.Equal(t, input+"\n", output)
+	assert.Equal(t, false, skip)
+}
+
+func TestSamplrKey(t *testing.T) {
 	const key = "#samplr#"
-	var l string
-	var skip bool
 
-	l, skip = sampleLine(fmt.Sprintf("%scontent", key))
-	assert.Equal(t, fmt.Sprintf("%scontent\ncontent\n", key), l)
-	assert.True(t, skip)
+	testCases := []struct {
+		input              string
+		expectedSecondLine string
+	}{
+		{
+			input:              key,
+			expectedSecondLine: "",
+		},
+		{
+			input:              key + "some content",
+			expectedSecondLine: "some content",
+		},
+		{
+			input:              key + " with lead spaces",
+			expectedSecondLine: " with lead spaces",
+		},
+		{
+			// With many keys, it just respects the first one
+			input:              key + "many" + key + "keys" + key,
+			expectedSecondLine: "many" + key + "keys" + key,
+		},
+		{
+			input:              "  " + key + "space before key",
+			expectedSecondLine: "  space before key",
+		},
+		{
+			input:              "  content-" + key + "+before key",
+			expectedSecondLine: "  content-+before key",
+		},
+	}
 
-	l, skip = sampleLine(fmt.Sprintf("   %scontent", key))
-	assert.Equal(t, fmt.Sprintf("   %scontent\ncontent\n", key), l)
-	assert.True(t, skip)
-
-	// Does not keep relative space for content
-	l, skip = sampleLine(fmt.Sprintf("   %scontent", key))
-	assert.NotEqual(t, fmt.Sprintf("   %scontent\n   content\n", key), l)
-	assert.True(t, skip)
+	for _, tc := range testCases {
+		actualOutput, actualSkip := sampleLine(tc.input)
+		expectedOutput := tc.input + "\n" + tc.expectedSecondLine + "\n"
+		assert.Equal(t, expectedOutput, actualOutput)
+		assert.Equal(t, true, actualSkip)
+	}
 }
 
 func TestSampleLineHideKey(t *testing.T) {
@@ -65,13 +95,9 @@ func TestSampleLineHideKey(t *testing.T) {
 	assert.Equal(t, "content\n", l)
 	assert.True(t, skip)
 
+	// Keeps identation
 	l, skip = sampleLine(fmt.Sprintf("   %scontent", hideKey))
-	assert.Equal(t, "content\n", l)
-	assert.True(t, skip)
-
-	// Does not keep relative space for content
-	l, skip = sampleLine(fmt.Sprintf("   %scontent", hideKey))
-	assert.NotEqual(t, "   content\n", l)
+	assert.Equal(t, "   content\n", l)
 	assert.True(t, skip)
 }
 

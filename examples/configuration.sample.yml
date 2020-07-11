@@ -9,3 +9,8 @@ previous_line: successfully hidden
 this_line: should render normally
 
 bar: bar
+
+some:
+  nested:
+    #samplr#data: public
+data: public
